@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة فزورة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .letter {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            margin: 10px;
+            background-color: #f2f2f2;
+            line-height: 50px;
+            text-align: center;
+            font-size: 24px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .success {
+            color: green;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        .failure {
+            color: red;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>لعبة الفزورة</h1>
+    <p>حاول ترتيب الحروف لتكوين الكلمة الصحيحة: "Tudor"</p>
+    
+    <div id="letters" class="container">
+        <div class="letter" onclick="swap(this)">T</div>
+        <div class="letter" onclick="swap(this)">u</div>
+        <div class="letter" onclick="swap(this)">d</div>
+        <div class="letter" onclick="swap(this)">o</div>
+        <div class="letter" onclick="swap(this)">r</div>
+    </div>
+
+    <div id="message"></div>
+
+    <script>
+        let correctWord = "Tudor";
+        let letters = Array.from(document.querySelectorAll('.letter'));
+        
+        function swap(element) {
+            let index = letters.indexOf(element);
+            let currentText = element.innerText;
+            let nextIndex = (index + 1) % letters.length;
+            let nextText = letters[nextIndex].innerText;
+            
+            // Swap letters
+            element.innerText = nextText;
+            letters[nextIndex].innerText = currentText;
+
+            checkAnswer();
+        }
+
+        function checkAnswer() {
+            let currentWord = letters.map(letter => letter.innerText).join('');
+            if (currentWord === correctWord) {
+                document.getElementById('message').innerHTML = '<p class="success">مبروك! لقد قمت بترتيب الكلمة بشكل صحيح.</p>';
+            } else {
+                document.getElementById('message').innerHTML = '';
+            }
+        }
+    </script>
+</body>
+</html>
